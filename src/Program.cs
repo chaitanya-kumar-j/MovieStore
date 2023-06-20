@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MovieStoreApp.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<MovieStoreAppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MovieStoreAppDbContext") ?? 
+            throw new InvalidOperationException("Connection string 'MovieStoreAppDbContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
